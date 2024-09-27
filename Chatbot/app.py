@@ -1,8 +1,13 @@
+"""
+This program is a chatbot application that uses the LangChain API for natural language processing.
+It is designed to assist users in a conversational manner, providing helpful responses to their queries.
+The program is configured to remember the context of the conversation, ensuring a more coherent and personalized interaction.
+"""
+
 import os
 from dotenv import find_dotenv, load_dotenv
 from langchain_groq import ChatGroq
-from langchain_core.messages import HumanMessage
-from langchain_core.messages import AIMessage
+from langchain_core.messages import HumanMessage, AIMessage
 from langchain_core.chat_history import (
     BaseChatMessageHistory,
     InMemoryChatMessageHistory,
@@ -46,6 +51,15 @@ store = {}
 
 
 def get_session_history(session_id: str) -> BaseChatMessageHistory:
+    """
+    Retrieves or initializes a session history for a given session ID.
+
+    Args:
+        session_id (str): The unique identifier for the session.
+
+    Returns:
+        BaseChatMessageHistory: The session history object associated with the session ID.
+    """
     if session_id not in store:
         store[session_id] = InMemoryChatMessageHistory()
     return store[session_id]
